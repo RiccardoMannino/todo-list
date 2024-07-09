@@ -21,8 +21,7 @@ export default function App() {
 			const itemToRemove = currentItems.find((item) => item.id === id);
 
 			if (itemToRemove) {
-				// React non riconosce i set come struttura dati da processare  ma solo oggetti
-				// e array quindi per evitare doppioni visto che lo stato è asincrono utilizziamo questa costante e la convertiamo in array
+				// React non riconosce i set come struttura dati da processare  ma solo oggetti e array quindi per evitare doppioni visto che lo stato è asincrono utilizziamo questa costante e la convertiamo in array
 				setDone((prevDone) => {
 					const updatedDone = new Set(
 						prevDone.map((item) => item.id).includes(itemToRemove.id)

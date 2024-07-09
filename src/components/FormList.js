@@ -18,7 +18,7 @@ export function FormList({ onAddThings }) {
 			packed: false,
 			id: id,
 		};
-		console.log(newItem);
+		//console.log(newItem);
 
 		// inseriamo newItem all'interno della props per elevare lo stato
 		onAddThings(newItem);
