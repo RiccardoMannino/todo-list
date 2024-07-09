@@ -14,15 +14,6 @@ export default function App() {
 		setItems((item) => [...item, thing]);
 	}
 
-	//mappiamo l'array dentro lo stato items e verifichiamo se l'id dell'elemento è uguale all'id dell'argomento della funzione e se lo è richiamiamo tutto l'array modificando il valore packed
-	// function handleToggleItem(id) {
-	// 	setItems((items) =>
-	// 		items.map((item) =>
-	// 			item.id === id ? { ...item, packed: !item.packed } : item
-	// 		)
-	// 	);
-	// }
-
 	// funzione che elimina un elemento dalla lista cose da prendere alla lista cose prese
 	const handleDeleteItem = (id) => {
 		setItems((currentItems) => {
@@ -31,7 +22,7 @@ export default function App() {
 
 			if (itemToRemove) {
 				// React non riconosce i set come struttura dati da processare  ma solo oggetti
-				// e array quindi per evitare doppioni visto che lo stato è asincrono utilizziamo questa constante e la convertiamo in array
+				// e array quindi per evitare doppioni visto che lo stato è asincrono utilizziamo questa costante e la convertiamo in array
 				setDone((prevDone) => {
 					const updatedDone = new Set(
 						prevDone.map((item) => item.id).includes(itemToRemove.id)

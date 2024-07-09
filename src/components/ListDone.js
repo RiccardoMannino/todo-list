@@ -31,10 +31,18 @@ export function ListDone({ done, onDeleteListDoneItem }) {
 				))}
 			</ul>
 			<p>
-				Hai preso
-				{done.length === 1
-					? `${done.length} cosa che ti serve`
-					: `${done.length} cose che ti servivano`}
+				<span style={{ marginRight: "4px" }}>Hai preso</span>
+				{done.length === 1 ? (
+					<>
+						{done.length}
+						<span style={{ marginLeft: "3px" }}>oggetto che ti serve</span>
+					</>
+				) : (
+					<>
+						{done.length}
+						<span style={{ marginLeft: "3px" }}>oggetti che ti servivano</span>
+					</>
+				)}
 			</p>
 		</div>
 	);

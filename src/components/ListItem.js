@@ -32,8 +32,17 @@ export function ListItem({ items, onToggleItem, onDeleteItem }) {
 				))}
 			</ul>
 			<p>
-				Devi prendere
-				{items.length === 1 ? `${items.length} cosa` : `${items.length} cose`}
+				<span style={{ marginRight: "4px" }}>Devi prendere</span>
+				{items.length === 1 ? (
+					<>
+						{items.length}
+						<span style={{ marginLeft: "3px" }}>oggetto</span>
+					</>
+				) : (
+					<>
+						{items.length} <span style={{ marginLeft: "3px" }}>oggetti</span>
+					</>
+				)}
 			</p>
 		</div>
 	);

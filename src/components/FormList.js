@@ -20,6 +20,7 @@ export function FormList({ onAddThings }) {
 		};
 		console.log(newItem);
 
+		// inseriamo newItem all'interno della props per elevare lo stato
 		onAddThings(newItem);
 
 		setDescription("");
