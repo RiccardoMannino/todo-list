@@ -24,6 +24,7 @@ export function FormList({ onAddThings }) {
 		onAddThings(newItem);
 
 		setDescription("");
+
 		setQuantity(1);
 	}
 

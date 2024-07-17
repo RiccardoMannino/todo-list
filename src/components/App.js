@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../index.css";
 import { Footer } from "./Footer";
 import { FormList } from "./FormList";
@@ -7,12 +7,26 @@ import { ListItem } from "./ListItem";
 import { Header } from "./Header";
 
 export default function App() {
-	const [items, setItems] = useState([]);
-	const [done, setDone] = useState([]);
+	const [items, setItems] = useState(() => {
+		const Items = JSON.parse(localStorage.getItem("items"));
+		return Items || [];
+	});
+	const [done, setDone] = useState(() => {
+		const doneItems = JSON.parse(localStorage.getItem("doneItems"));
+		return doneItems || [];
+	});
 
 	function handleAddItem(thing) {
-		setItems((item) => [...item, thing]);
+		setItems((items) => [...items, thing]);
 	}
+
+	useEffect(() => {
+		localStorage.setItem("items", JSON.stringify(items));
+	}, [items]);
+
+	useEffect(() => {
+		localStorage.setItem("doneItems", JSON.stringify(done));
+	}, [done]);
 
 	// funzione che elimina un elemento dalla lista cose da prendere alla lista cose prese
 	const handleDeleteItem = (id) => {
