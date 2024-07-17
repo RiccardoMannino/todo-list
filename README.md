@@ -7,6 +7,7 @@ Una semplice applicazione web sviluppata in React per gestire la tua lista della
 - **Aggiunta di elementi alla lista della spesa:** Inserisci cosa ti serve e la quantità.
 - **Visualizzazione di due liste:** Una per gli elementi da prendere e una per quelli già presi.
 - **Spostamento degli elementi:** Sposta facilmente gli elementi dalla lista delle cose da prendere a quella delle cose prese.
+- **Salvataggio in LocalStorage:** Se sono presenti nelle liste degli elementi, ricaricando la pagina saranno visualizzati.
 
 ## Tecnologie Utilizzate
 
