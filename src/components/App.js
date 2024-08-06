@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import "../index.css";
 import { Footer } from "./Footer";
 import { FormList } from "./FormList";
 import { ListDone } from "./ListDone";
 import { ListItem } from "./ListItem";
 import { Header } from "./Header";
+
+export const ListContext = createContext();
 
 export default function App() {
 	const [items, setItems] = useState(() => {
@@ -55,14 +57,24 @@ export default function App() {
 	}
 
 	return (
-		<div className="app">
-			<Header />
-			<FormList onAddThings={handleAddItem} />
-			<div style={{ display: "flex" }}>
-				<ListItem items={items} onDeleteItem={handleDeleteItem} />
-				<ListDone done={done} onDeleteListDoneItem={handleDeleteDoneItem} />
+		<ListContext.Provider
+			value={{
+				items,
+				done,
+				addItems: handleAddItem,
+				deleteItems: handleDeleteItem,
+				deleteDoneItem: handleDeleteDoneItem,
+			}}
+		>
+			<div className="app">
+				<Header />
+				<FormList onAddThings={handleAddItem} />
+				<div style={{ display: "flex" }}>
+					<ListItem />
+					<ListDone />
+				</div>
+				<Footer />
 			</div>
-			<Footer done={done} item={items} />
-		</div>
+		</ListContext.Provider>
 	);
 }

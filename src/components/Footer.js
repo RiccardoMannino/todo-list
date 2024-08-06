@@ -1,5 +1,10 @@
-export function Footer({ done, item }) {
-	const itemLength = item.length;
+import { useContext } from "react";
+import { ListContext } from "./App";
+
+export function Footer() {
+	const { items, done } = useContext(ListContext);
+
+	const itemLength = items.length;
 	const numLength = done.length;
 	const numItemsLength = itemLength + numLength;
 

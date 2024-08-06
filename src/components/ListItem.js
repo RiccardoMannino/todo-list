@@ -1,6 +1,6 @@
 import { Item } from "./Item";
 
-export function ListItem({ items, onToggleItem, onDeleteItem }) {
+export function ListItem() {
 	return (
 		<div
 			style={{
@@ -13,37 +13,7 @@ export function ListItem({ items, onToggleItem, onDeleteItem }) {
 				justifyContent: "space-between",
 			}}
 		>
-			<ul
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
-					gap: "1rem",
-				}}
-			>
-				<p>Cose da prendere</p>
-				{items.map((item) => (
-					<Item
-						item={item}
-						key={item.id}
-						onToggleItem={onToggleItem}
-						onDeleteItem={onDeleteItem}
-					/>
-				))}
-			</ul>
-			<p>
-				<span style={{ marginRight: "4px" }}>Devi prendere</span>
-				{items.length === 1 ? (
-					<>
-						{items.length}
-						<span style={{ marginLeft: "3px" }}>oggetto</span>
-					</>
-				) : (
-					<>
-						{items.length} <span style={{ marginLeft: "3px" }}>oggetti</span>
-					</>
-				)}
-			</p>
+			<Item />
 		</div>
 	);
 }
