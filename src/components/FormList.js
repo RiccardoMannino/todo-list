@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "./Button";
+import { ListContext } from "./App";
 
-export function FormList({ onAddThings }) {
+export function FormList() {
+	const { addItems } = useContext(ListContext);
+
 	const [description, setDescription] = useState("");
 	const [quantity, setQuantity] = useState(1);
 
@@ -21,7 +24,7 @@ export function FormList({ onAddThings }) {
 		//console.log(newItem);
 
 		// inseriamo newItem all'interno della props per elevare lo stato
-		onAddThings(newItem);
+		addItems(newItem);
 
 		setDescription("");
 

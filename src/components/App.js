@@ -6,6 +6,8 @@ import { ListDone } from "./ListDone";
 import { ListItem } from "./ListItem";
 import { Header } from "./Header";
 
+// TODO: Sistemazione stile di tutti i componenti
+
 export const ListContext = createContext();
 
 export default function App() {
@@ -68,7 +70,7 @@ export default function App() {
 		>
 			<div className="app">
 				<Header />
-				<FormList onAddThings={handleAddItem} />
+				<FormList />
 				<div style={{ display: "flex" }}>
 					<ListItem />
 					<ListDone />
