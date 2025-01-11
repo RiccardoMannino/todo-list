@@ -1,6 +1,8 @@
 # Todo List App
 
+
 Una semplice applicazione web sviluppata in React per gestire le tue attività quotidiane. L'app permette di aggiungere elementi alla lista delle cose da fare e di spostarle nella lista delle cose completate.
+
 
 ## Funzionalità
 

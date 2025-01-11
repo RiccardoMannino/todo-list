@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { Button } from "./Button";
-import { ListContext } from "./App";
+import { useList } from "../context/ListContext";
 
 export function DoneItem() {
-	const { done, deleteDoneItem } = useContext(ListContext);
+	const { done, deleteDoneItems } = useList();
 
 	return (
 		<>
@@ -15,29 +14,31 @@ export function DoneItem() {
 					gap: "1rem",
 				}}
 			>
-				<p>Cose prese</p>
-				{done.map((doneItem) => (
+				<p>Cose fatte</p>
+				{done?.map((doneItem) => (
 					<li key={doneItem.id}>
 						<span style={{ textDecoration: "line-through" }}>
-							{doneItem.quantity} {doneItem.description}
+							{doneItem.description}
 						</span>
-						<Button onClick={() => deleteDoneItem(doneItem.id)}>
-							Elimina definitivamente ❌
+						<Button onClick={() => deleteDoneItems(doneItem.id)}>
+							❌
 						</Button>
 					</li>
 				))}
 			</ul>
 			<p>
-				<span style={{ marginRight: "4px" }}>Hai preso</span>
-				{done.length === 1 ? (
+				<span style={{ marginRight: "4px" }}>Hai fatto</span>
+				{done?.length === 1 ? (
 					<>
-						{done.length}
-						<span style={{ marginLeft: "3px" }}>oggetto che ti serve</span>
+						{done?.length}
+						<span style={{ marginLeft: "3px" }}>cosa </span>
 					</>
 				) : (
 					<>
-						{done.length}
-						<span style={{ marginLeft: "3px" }}>oggetti che ti servivano</span>
+						{done?.length > 1 ||
+							(done?.length === 0 && (
+								<span style={{ marginLeft: "3px" }}>{done?.length} cose</span>
+							))}
 					</>
 				)}
 			</p>

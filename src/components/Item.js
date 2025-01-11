@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import { Button } from "./Button";
-import { ListContext } from "./App";
+import { useList } from "../context/ListContext";
 
 export function Item() {
-	const { items, deleteItems } = useContext(ListContext);
+	const { items, deleteItems } = useList();
 
 	return (
 		<>
@@ -15,28 +14,30 @@ export function Item() {
 					gap: "1rem",
 				}}
 			>
-				<p>Cose da prendere</p>
+				<p>Cose da Fare</p>
 				{items.map((item) => (
-					<li>
-						<span>
-							{item.quantity} {item.description}
-						</span>
-						<Button onClick={() => deleteItems(item.id)}>
-							Segna come preso ✅
+					<li key={item.id}>
+						<span>{item.description}</span>
+						<Button
+							onClick={() =>
+								deleteItems(item.id)
+							}
+						>
+							✅
 						</Button>
 					</li>
 				))}
 			</ul>
 			<p>
-				<span style={{ marginRight: "4px" }}>Devi prendere</span>
+				<span style={{ marginRight: "4px" }}>Devi fare</span>
 				{items.length === 1 ? (
 					<>
 						{items.length}
-						<span style={{ marginLeft: "3px" }}>oggetto</span>
+						<span style={{ marginLeft: "3px" }}>cosa</span>
 					</>
 				) : (
 					<>
-						{items.length} <span style={{ marginLeft: "3px" }}>oggetti</span>
+						{items.length} <span style={{ marginLeft: "3px" }}>cose</span>
 					</>
 				)}
 			</p>
