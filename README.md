@@ -1,6 +1,6 @@
 # Lista della Spesa
 
-Una semplice applicazione web sviluppata in React per gestire la tua lista della spesa. L'app permette di aggiungere elementi con la relativa quantità alla lista delle cose da prendere e di spostarle nella lista delle cose già prese.
+Una semplice applicazione web sviluppata in React per gestire le tua lista della spesa. L'app permette di aggiungere elementi con la relativa quantità alla lista delle cose da prendere e di spostarle nella lista delle cose già prese.
 
 ## Funzionalità
 

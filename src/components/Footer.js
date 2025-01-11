@@ -1,17 +1,16 @@
-import { useContext } from "react";
-import { ListContext } from "./App";
+import { useList } from "../context/ListContext";
 
 export function Footer() {
-	const { items, done } = useContext(ListContext);
+	const { items, done } = useList();
 
 	const itemLength = items.length;
-	const numLength = done.length;
+	const numLength = done?.length;
 	const numItemsLength = itemLength + numLength;
 
 	if (!numLength) {
 		return (
 			<p className="footer">
-				<em>Aggiungi qualcosa alla tua lista della spesa</em>
+				<em>Aggiungi qualcosa alla tua lista delle cose da fare</em>
 			</p>
 		);
 	}
@@ -19,7 +18,7 @@ export function Footer() {
 	if (itemLength === 0 && numLength >= 1) {
 		return (
 			<p className="footer">
-				<em>Hai preso tutto!!</em>
+				<em>Hai fatto tutto!!</em>
 			</p>
 		);
 	}
@@ -27,7 +26,7 @@ export function Footer() {
 	return (
 		<footer className="footer">
 			<em>
-				Hai preso {numLength} cose su {numItemsLength}
+				Hai fatto {numLength} cose su {numItemsLength}
 			</em>
 		</footer>
 	);

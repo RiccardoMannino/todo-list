@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Button } from "./Button";
-import { ListContext } from "./App";
+import { useList } from "../context/ListContext";
 
 export function FormList() {
-	const { addItems } = useContext(ListContext);
+	const { addItems } = useList();
 
 	const [description, setDescription] = useState("");
 	const [quantity, setQuantity] = useState(1);
@@ -16,14 +16,11 @@ export function FormList() {
 		const id = crypto.randomUUID();
 
 		const newItem = {
+			id: id,
 			description: description,
 			quantity: quantity,
-			packed: false,
-			id: id,
 		};
-		//console.log(newItem);
 
-		// inseriamo newItem all'interno della props per elevare lo stato
 		addItems(newItem);
 
 		setDescription("");
@@ -34,14 +31,8 @@ export function FormList() {
 	return (
 		<div>
 			<form className="form" onSubmit={handleSubmit}>
-				<label>Inserisci quello che ti serve</label>
-				<select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
-					{Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-						<option value={num} key={num}>
-							{num}
-						</option>
-					))}
-				</select>
+				<label>Inserisci la tua attività da fare</label>
+
 				<input
 					type="text"
 					value={description}
