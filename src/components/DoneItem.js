@@ -28,16 +28,16 @@ export function DoneItem() {
 			</ul>
 			<p>
 				<span style={{ marginRight: "4px" }}>Hai fatto</span>
-				{done?.length === 1 ? (
+				{done.length === 1 ? (
 					<>
-						{done?.length}
-						<span style={{ marginLeft: "3px" }}>cosa </span>
+						{done.length}
+						<span style={{ marginLeft: "3px" }}>cosa</span>
 					</>
 				) : (
 					<>
-						{done?.length > 1 ||
-							(done?.length === 0 && (
-								<span style={{ marginLeft: "3px" }}>{done?.length} cose</span>
+						{done.length > 1 ||
+							(done.length === 0 && (
+								<span style={{ marginLeft: "3px" }}>{done.length}cose</span>
 							))}
 					</>
 				)}

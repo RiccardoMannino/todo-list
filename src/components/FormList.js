@@ -6,7 +6,7 @@ export function FormList() {
 	const { addItems } = useList();
 
 	const [description, setDescription] = useState("");
-	const [quantity, setQuantity] = useState(1);
+
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -18,14 +18,12 @@ export function FormList() {
 		const newItem = {
 			id: id,
 			description: description,
-			quantity: quantity,
 		};
 
 		addItems(newItem);
 
 		setDescription("");
 
-		setQuantity(1);
 	}
 
 	return (
