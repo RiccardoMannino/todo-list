@@ -40,6 +40,29 @@ h1 {
 	padding: 2.4rem 0;
 }
 
+@media screen and (max-width: 800px) {
+	h1 {
+		font-size: 3.5rem;
+		word-spacing: 8px;
+		letter-spacing: 1px;
+	}
+	li {
+		font-size: 2rem;
+	}
+	.form {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		gap: 2rem;
+		padding: 2rem;
+		background-color: #282828;
+	}
+	label{
+		font-size: 1rem;
+	}
+}
+
 p {
 	margin-top: 3rem;
 }
