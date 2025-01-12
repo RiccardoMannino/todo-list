@@ -11,6 +11,9 @@ Una semplice applicazione web sviluppata in React per gestire le tue attività q
 - **Spostamento delle attività:** Sposta facilmente le attività dalla lista "da fare" a quella "completate".
 - **Salvataggio in LocalStorage:** Le tue attività vengono salvate automaticamente e persisteranno anche dopo il ricaricamento della pagina.
 
+## Prossimi Fix 
+Design Responsive
+
 ## Tecnologie Utilizzate
 
 - React
@@ -18,22 +21,8 @@ Una semplice applicazione web sviluppata in React per gestire le tue attività q
 - CSS
 - JavaScript
 
-## Installazione
-
-1. Clona il repository
-
-   ```sh
-   git clone https://github.com/RiccardoMannino/todo-list.git
-   ```
-
-2. Entra nella directory del progetto
-   cd todo-list
-
-3. Installa dipendenze
-   npm install
-
-4. Avvia applicazione
-   npm start
+## L'applicazione è deployata al link qui sotto
+https://todo-list-chi-steel.vercel.app/
 
 ## Contatti
 
