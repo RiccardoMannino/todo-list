@@ -9,19 +9,29 @@ const initialState = {
 
 function reducer(state, action) {
 
-	if (!state || !Array.isArray(state.items) || !Array.isArray(state.done)) {
-		return initialState;
-	}
+
 	switch (action.type) {
-
-
 		case "item/add":
 			return { ...state, items: [...state.items, action.payload] };
+
+		case "item/update":
+			const updatedItems = state.items.map(item => {
+				if (item.id === action.payload.id) {
+					// Aggiorna l'elemento
+					return { ...item, ...action.payload };
+				}
+				// Mantieni invariato l'elemento
+				return item;
+			});
+
+			return { ...state, items: updatedItems };
+
+		case "item/singleItemRemove":
+			return {...state , items: state.items.filter((item) => item.id !== action.payload)};
 
 		case "item/delete":
 			// Verifica se l'ID è valido
 			if (action.payload === undefined || action.payload === null) {
-				console.log('Invalid ID received');
 				return state;
 			}
 
@@ -64,14 +74,20 @@ function ListProvider({ children }) {
 
 	useEffect(() => {
 		localStorage.setItem("items", JSON.stringify(items));
-	}, [items]);
-
-	useEffect(() => {
 		localStorage.setItem("doneItems", JSON.stringify(done));
-	}, [done]);
+	}, [items,done]);
+
 
 	function handleAddItem(thing) {
 		dispatch({ type: "item/add", payload: thing });
+	}
+
+	function handleDeleteSingleItem(id) {
+		dispatch({ type: "item/singleItemRemove", payload: id });
+	}
+
+	function handleUpdateItem(thing) {
+		dispatch({type: "item/update", payload: thing})
 	}
 
 	function handleDeleteDoneItem(id) {
@@ -82,12 +98,15 @@ function ListProvider({ children }) {
 		dispatch({ type: "item/delete", payload: id });
 	}
 
+
 	return (
 		<ListContext.Provider
 			value={{
 				items,
 				done,
 				addItems: handleAddItem,
+				removeItem: handleDeleteSingleItem,
+				updateItems: handleUpdateItem,
 				deleteItems: handleDeleteItem,
 				deleteDoneItems: handleDeleteDoneItem,
 				dispatch,
