@@ -14,10 +14,10 @@ export default function App() {
 		<div className="app">
 			<Header />
 			<FormList />
-			<div style={{ display: "flex" }}>
+			<section>
 				<ListItem />
 				<ListDone />
-			</div>
+			</section>
 			<Footer />
 		</div>
 	);

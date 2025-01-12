@@ -60,21 +60,28 @@ export function Item() {
 						update && editId === item.id ? (
 								<form onSubmit={handleSubmit} style={formStyle} >
 									<input  value={description} type="text" onChange={(e) => setDescription(e.target.value)} />
-									<button type="submit">Submit</button>
+									<button type="submit">Invio</button>
 								</form>
 							): <span>{item.description}</span>
 
 						}
 
-						<Button
+						{!update ?
+							<>
+							<Button
 							onClick={() =>
 								deleteItems(item.id)
 							}
 						>
 							✅
 						</Button>
-						<Button onClick={() => removeItem(item.id)}>❌</Button>
+							<Button onClick={() => removeItem(item.id)}>❌</Button>
 						<Button onClick={() => handleTrackId(item.id)}>Modifica</Button>
+							</>
+							: editId !== item.id && (
+							<Button onClick={() => handleTrackId(item.id)}>Modifica</Button>
+						)
+						}
 					</li>
 				))}
 			</ul>

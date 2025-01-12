@@ -15,7 +15,7 @@ export function DoneItem() {
 				}}
 			>
 				<p>Cose fatte</p>
-				{done?.map((doneItem) => (
+				{done.map((doneItem) => (
 					<li key={doneItem.id}>
 						<span style={{ textDecoration: "line-through" }}>
 							{doneItem.description}
@@ -35,7 +35,7 @@ export function DoneItem() {
 					</>
 				) : (
 					<>
-						{done.length > 1 ||
+						{done.length > 1 &&
 							(done.length === 0 && (
 								<span style={{ marginLeft: "3px" }}>{done.length}cose</span>
 							))}
