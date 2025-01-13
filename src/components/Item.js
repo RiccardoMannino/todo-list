@@ -1,11 +1,12 @@
 import { Button } from "./Button";
 import { useList } from "../context/ListContext";
 import {useState} from "react";
+import { Reorder } from "motion/react"
 
 
 
 export function Item() {
-	const { items, deleteItems , updateItems ,removeItem } = useList();
+	const { items, deleteItems , updateItems ,removeItem , reorderItems } = useList();
 	const [update, setUpdate] = useState(false);
 	const [description, setDescription] = useState("");
 	const [editId, setEditId] = useState(null);
@@ -41,14 +42,12 @@ export function Item() {
 
 	return (
 		<>
-			<ul
-				className="flex items-center justify-between h-full w-full flex-col gap-3.5 text-neutral-50 font-medium"
-			>
-				<p>Cose da Fare</p>
+			<Reorder.Group axis="y" values={items} onReorder={(ordine) => reorderItems(ordine)} className="flex items-center justify-between h-full w-full flex-col gap-3.5 text-neutral-50 font-medium">
+				<p className="text-xl">Attività da svolgere</p>
 				<div className="flex flex-col h-full items-center" >
 
 				{items.map((item) => (
-					<li key={item.id}>
+					<Reorder.Item value={item} key={item.id} className="cursor-grab mb-3">
 						{
 							update && editId === item.id ? (
 								<form className="flex gap-2.5" onSubmit={handleSubmit} >
@@ -58,8 +57,7 @@ export function Item() {
 									<Button className="text-neutral-50 bg-yellow-500 p-2 font-medium rounded-2xl"
 											type="submit">Invio</Button>
 								</form>
-							) : <span >{item.description}</span>
-
+							) : <span>{item.description}</span>
 						}
 
 						{!update ?
@@ -80,25 +78,13 @@ export function Item() {
 							<Button className="text-neutral-50 bg-yellow-500 ml-2 p-2 font-medium text-sm rounded-2xl" onClick={() => handleTrackId(item.id)}>Modifica</Button>
 						)
 						}
-					</li>
+					</Reorder.Item>
 				))}
 				</div>
 				<p className="text-xl">
-				<span className="mr-1 " >Devi fare</span>
-				{items.length === 1 ? (
-					<>
-						{items.length}
-						<span className="ml-1">cosa!</span>
-					</>
-				) : (
-					<>
-						{items.length}
-						<span className="ml-1">cose!</span>
-					</>
-				)}
+				<span className="mr-1">Devi svolgere {items.length} attività!</span>
 			</p>
-			</ul>
-
+			</Reorder.Group>
 		</>
 	);
 }

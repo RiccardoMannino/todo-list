@@ -11,6 +11,18 @@ function reducer(state, action) {
 
 
 	switch (action.type) {
+		case "item/reorder":
+			return {
+				...state,
+				items: action.payload, // Aggiorna lo stato con il nuovo ordine degli elementi
+			};
+
+		case "done/reorder":
+			return {
+				...state,
+				done: action.payload, // Aggiorna lo stato con il nuovo ordine degli elementi
+			};
+
 		case "item/add":
 			return { ...state, items: [...state.items, action.payload] };
 
@@ -98,6 +110,14 @@ function ListProvider({ children }) {
 		dispatch({ type: "item/delete", payload: id });
 	}
 
+	function handleReorderItems(ordine) {
+		dispatch({ type: "item/reorder", payload: ordine });
+	}
+
+	function handleDoneReorderItems(ordine) {
+		dispatch({ type: "done/reorder", payload: ordine });
+	}
+
 
 	return (
 		<ListContext.Provider
@@ -109,6 +129,8 @@ function ListProvider({ children }) {
 				updateItems: handleUpdateItem,
 				deleteItems: handleDeleteItem,
 				deleteDoneItems: handleDeleteDoneItem,
+				reorderItems: handleReorderItems,
+				reorderDoneItems: handleDoneReorderItems,
 				dispatch,
 			}}
 		>

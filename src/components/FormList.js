@@ -28,8 +28,8 @@ export function FormList() {
 
 	return (
 		<div >
-			<form className="flex w-full justify-center items-center gap-4 my-4 mx-4" onSubmit={handleSubmit}>
-				<label className="text-neutral-50 font-medium text-wrap">Inserisci la tua attività da fare</label>
+			<form className="phone:flex-col flex justify-center items-center gap-4 my-4 mx-4" onSubmit={handleSubmit}>
+				<label className="text-neutral-50 font-medium text-wrap">Inserisci la tua attività da svolgere</label>
 				<input
 					type="text"
 					value={description}

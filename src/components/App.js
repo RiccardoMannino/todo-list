@@ -13,7 +13,7 @@ export default function App() {
 		<div className="flex flex-col items-between justify-around h-screen overflow-x-hidden">
 			<Header />
 			<FormList />
-			<section className="flex my-8 h-full">
+			<section className="phone:flex-col phone:justify-between flex my-8 h-full">
 				<ListItem />
 				<ListDone />
 			</section>
