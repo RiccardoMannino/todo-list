@@ -27,16 +27,16 @@ export function FormList() {
 	}
 
 	return (
-		<div>
-			<form className="form" onSubmit={handleSubmit}>
-				<label>Inserisci la tua attività da fare</label>
-
+		<div >
+			<form className="flex w-full justify-center items-center gap-4 my-4 mx-4" onSubmit={handleSubmit}>
+				<label className="text-neutral-50 font-medium text-wrap">Inserisci la tua attività da fare</label>
 				<input
 					type="text"
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
+					className="bg-yellow-500 accent-neutral-50 p-2 rounded-2xl text-neutral-50"
 				/>
-				<Button>Aggiungi</Button>
+				<Button className="text-neutral-50 bg-yellow-500 p-2 font-medium rounded-2xl">Aggiungi</Button>
 			</form>
 		</div>
 	);

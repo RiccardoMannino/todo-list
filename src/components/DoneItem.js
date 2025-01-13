@@ -7,37 +7,38 @@ export function DoneItem() {
 	return (
 		<>
 			<ul
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
-					gap: "1rem",
-				}}
+				className="flex h-full items-center justify-center w-full flex-col gap-3.5 text-neutral-50 font-medium"
 			>
 				<p>Cose fatte</p>
-				{done.map((doneItem) => (
-					<li key={doneItem.id}>
-						<span style={{ textDecoration: "line-through" }}>
+				<div className="flex flex-col h-full items-center justify-between ">
+					<div className="flex flex-col gap-3.5 self-start">{done.map((doneItem) => (
+						<li key={doneItem.id}>
+						<span className="line-through mr-2">
 							{doneItem.description}
 						</span>
-						<Button onClick={() => deleteDoneItems(doneItem.id)}>
-							❌
-						</Button>
-					</li>
-				))}
+							<Button className="text-neutral-50 bg-yellow-500 p-1 font-medium rounded-2xl text-sm"
+									onClick={() => deleteDoneItems(doneItem.id)}>
+								❌
+							</Button>
+						</li>
+					))}
+					</div>
+
+
+				</div>
 			</ul>
-			<p>
-				<span style={{ marginRight: "4px" }}>Hai fatto</span>
+			<p className="text-neutral-50 font-medium text-xl">
+				<span className="mr-1">Hai fatto</span>
 				{done.length === 1 ? (
 					<>
 						{done.length}
-						<span style={{ marginLeft: "3px" }}>cosa</span>
+						<span className="ml-1">cosa</span>
 					</>
 				) : (
 					<>
-						{done.length > 1 &&
+						{done.length > 1 ||
 							(done.length === 0 && (
-								<span style={{ marginLeft: "3px" }}>{done.length}cose</span>
+								<span className="ml-1">{done.length} cose!</span>
 							))}
 					</>
 				)}

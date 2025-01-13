@@ -9,12 +9,11 @@ import { Header } from "./Header";
 
 export default function App() {
 
-
 	return (
-		<div className="app">
+		<div className="flex flex-col items-between justify-around h-screen overflow-x-hidden">
 			<Header />
 			<FormList />
-			<section>
+			<section className="flex my-8 h-full">
 				<ListItem />
 				<ListDone />
 			</section>

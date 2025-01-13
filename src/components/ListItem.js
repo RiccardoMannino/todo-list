@@ -3,15 +3,7 @@ import { Item } from "./Item";
 export function ListItem() {
 	return (
 		<div
-			style={{
-				textAlign: "center",
-				color: "white",
-				width: "100%",
-				background: "#282828",
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "space-between",
-			}}
+			className="flex justify-between text-center w-full flex-col"
 		>
 			<Item />
 		</div>
