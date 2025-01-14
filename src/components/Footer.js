@@ -7,7 +7,7 @@ export function Footer() {
 	const doneLength = done.length;
 	const numItemsLength = itemLength + doneLength;
 
-	if (!itemLength || !doneLength) {
+	if (!itemLength) {
 		return (
 			<footer className="flex py-8 phone:text-2xl phone:text-center self-center items-center text-yellow-500 font-medium text-3xl" >
 				<em>Aggiungi qualcosa alla tua lista delle cose da fare</em>
@@ -24,7 +24,7 @@ export function Footer() {
 	}
 
 	return (
-		<footer className="flex  py-8 phone:text-2xl phone:text-center self-center items-center h-96 text-yellow-500 font-medium text-3xl">
+		<footer className="flex py-8 phone:text-2xl phone:text-center self-center items-center h-96 text-yellow-500 font-medium text-3xl">
 			<em>
 				Hai svolto {doneLength} attività su {numItemsLength}
 			</em>

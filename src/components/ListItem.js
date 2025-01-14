@@ -3,7 +3,7 @@ import { Item } from "./Item";
 export function ListItem() {
 	return (
 		<div
-			className="flex justify-between text-center w-full flex-col"
+			className="flex max-h-96 phone:max-h-56 justify-between text-center w-full flex-col"
 		>
 			<Item />
 		</div>
