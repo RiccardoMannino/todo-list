@@ -44,7 +44,7 @@ export function Item() {
 		<>
 			<Reorder.Group axis="y" values={items} onReorder={(ordine) => reorderItems(ordine)} className="flex items-center justify-between h-full w-full flex-col gap-3.5 text-neutral-50 font-medium">
 				<p className="text-xl">Attività da svolgere</p>
-				<div className="flex flex-col h-full items-center overflow-y-scroll" >
+				<div className="flex flex-col h-full items-center phone:w-full overflow-y-scroll" >
 				{items.map((item) => (
 					<Reorder.Item value={item} key={item.id} className="cursor-grab mb-3">
 						{
