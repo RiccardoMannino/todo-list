@@ -16,7 +16,7 @@ export function DoneItem() {
 						<span className="line-through mr-2">
 							{doneItem.description}
 						</span>
-								<Button className="text-neutral-50 bg-yellow-500 p-1 font-medium rounded-2xl text-sm"
+								<Button className="text-neutral-50 bg-yellow-500 p-2 font-medium rounded-2xl text-sm hover:scale-110 transition duration-500"
 										onClick={() => deleteDoneItems(doneItem.id)}>
 									❌
 								</Button>
