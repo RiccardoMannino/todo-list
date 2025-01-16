@@ -54,7 +54,8 @@ export function Item() {
 										   value={description} type="text"
 										   onChange={(e) => setDescription(e.target.value)}/>
 									<Button className="text-neutral-50 bg-yellow-500 p-2 font-medium rounded-2xl hover:scale-110 transition duration-500"
-											type="submit">Invio</Button>
+											type="submit">Invio
+									</Button>
 								</form>
 							) : <span>{item.description}</span>
 						}
