@@ -6,7 +6,6 @@ export function DoneItem() {
 	const { done, deleteDoneItems , reorderDoneItems } = useList();
 
 	return (
-		<>
 			<Reorder.Group axys="y" values={done} className="flex h-full items-center justify-center w-full flex-col gap-3.5 text-neutral-50 font-medium" onReorder={(ordine) => reorderDoneItems(ordine)}>
 				<p className="text-xl">Attività svolte</p>
 				<div className="flex  flex-col h-full items-center justify-between overflow-y-scroll">
@@ -28,6 +27,5 @@ export function DoneItem() {
 					<span className="mr-1">Hai Svolto {done.length} attività!</span>
 				</p>
 			</Reorder.Group>
-		</>
 	);
 }
