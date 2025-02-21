@@ -4,10 +4,13 @@ import { FormList } from "./FormList";
 import { ListDone } from "./ListDone";
 import { ListItem } from "./ListItem";
 import { Header } from "./Header";
+import { ListDoing } from "./ListDoing";
 
 // TODO: Sistemazione stile di tutti i componenti
+// TODO: Aggiungere posasibilità task giornaliere e task a lungo termine
 
 export default function App() {
+	
 
 	return (
 		<div className="flex flex-col items-between justify-around h-screen overflow-x-hidden">
@@ -15,6 +18,7 @@ export default function App() {
 			<FormList />
 			<section className="phone:flex-col phone:justify-between flex my-8 h-full">
 				<ListItem />
+				<ListDoing />
 				<ListDone />
 			</section>
 			<Footer />

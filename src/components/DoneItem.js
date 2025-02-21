@@ -6,10 +6,10 @@ export function DoneItem() {
 	const { done, deleteDoneItems , reorderDoneItems } = useList();
 
 	return (
-			<Reorder.Group axys="y" values={done} className="flex h-full items-center justify-center w-full flex-col gap-3.5 text-neutral-50 font-medium" onReorder={(ordine) => reorderDoneItems(ordine)}>
+			<Reorder.Group axis="y" values={done} className="flex h-full items-center justify-center w-full flex-col gap-3.5 text-neutral-50 font-medium" onReorder={(ordine) => reorderDoneItems(ordine)}>
 				<p className="text-xl">Attività svolte</p>
 				<div className="flex phone:w-full flex-col h-full items-center justify-between overflow-y-scroll">
-					<div className="flex flex-col gap-3.5 phone:self-center self-start ">
+					<div className="flex flex-col gap-3.5 phone:self-center self-start">
 						{done.map((doneItem) => (
 							<Reorder.Item value={doneItem} key={doneItem.id} className="cursor-grab">
 						<span className="line-through mr-2">

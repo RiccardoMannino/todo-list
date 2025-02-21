@@ -6,7 +6,7 @@ import { Reorder } from "motion/react"
 
 
 export function Item() {
-	const { items, deleteItems , updateItems ,removeItem , reorderItems } = useList();
+	const { items, deleteItems,  addDoing, updateItems ,removeItem , reorderItems } = useList();
 	const [update, setUpdate] = useState(false);
 	const [description, setDescription] = useState("");
 	const [editId, setEditId] = useState(null);
@@ -69,6 +69,14 @@ export function Item() {
 									}
 								>
 									✅
+								</Button>
+								<Button
+									className="text-neutral-50 bg-yellow-200 p-2 font-medium rounded-2xl text-sm hover:scale-110 transition duration-500"
+									onClick={() =>
+										addDoing(item.id)
+									}
+								>
+								⌛
 								</Button>
 								<Button className="text-neutral-50 bg-yellow-500 p-2 font-medium text-sm rounded-2xl hover:scale-110 transition duration-500 "
 										onClick={() => removeItem(item.id)}>❌</Button>
