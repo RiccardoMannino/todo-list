@@ -6,8 +6,8 @@ import { ListItem } from "./ListItem";
 import { Header } from "./Header";
 import { ListDoing } from "./ListDoing";
 
-// TODO: Sistemazione stile di tutti i componenti
-// TODO: Aggiungere posasibilità task giornaliere e task a lungo termine
+
+// TODO: Aggiungere possibilità di avere task giornaliere e task a lungo termine
 
 export default function App() {
 	
