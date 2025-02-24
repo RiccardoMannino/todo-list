@@ -1,11 +1,12 @@
 import { useList } from "../context/ListContext";
 
 export function Footer() {
-	const { items, done } = useList();
+	const { longTerms } = useList();
 
-	const itemLength = items.length;
-	const doneLength = done.length;
-	const numItemsLength = itemLength + doneLength;
+	const itemLength = longTerms.items.length;
+	const doneLength = longTerms.done.length;
+	const doingLength = longTerms.doing.length
+	const numItemsLength = itemLength + doneLength + doingLength;
 
 	if (itemLength === 0 && numItemsLength !== 0) {
 		return (
@@ -20,11 +21,12 @@ export function Footer() {
 		return (
 			<footer
 				className="flex py-8 phone:text-2xl phone:text-center self-center items-center text-yellow-500 font-medium text-3xl">
-			 <em>Aggiungi qualcosa alla tua lista delle cose da
+			<em>Aggiungi qualcosa alla tua lista delle cose da
 				fare</em>
 			</footer>
 		);
 	}
+
 
 	return (
 		<footer

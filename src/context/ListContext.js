@@ -3,9 +3,17 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 const ListContext = createContext();
 
 const initialState = {
-	items: JSON.parse(localStorage.getItem("items")) || [],
-	doing: JSON.parse(localStorage.getItem("doingItems")) || [],
-	done: JSON.parse(localStorage.getItem("doneItems")) || [],
+	longTerms :{
+		items: JSON.parse(localStorage.getItem("items")) ? JSON.parse(localStorage.getItem("items")) : [],
+
+		doing: JSON.parse(localStorage.getItem("doingItems")) || [],
+		done: JSON.parse(localStorage.getItem("doneItems")) || [],
+	},
+	today : {
+		todayItems: JSON.parse(localStorage.getItem("todayItems")) || [],
+		todayDoing: JSON.parse(localStorage.getItem("todayDoingItems")) || [],
+		todayDone: JSON.parse(localStorage.getItem("todayDoneItems")) || [],
+	}
 };
 
 function reducer(state, action) {
@@ -15,26 +23,43 @@ function reducer(state, action) {
 		case "item/reorder":
 			return {
 				...state,
-				items: action.payload, 
+				longTerms:{
+						...state.longTerms,
+						items: action.payload, 
+				}
 			};
 
 		case "done/reorder":
 			return {
 				...state,
-				done: action.payload,
+				longTerms:{
+					...state.longTerms,
+						done: action.payload,
+				}
 			};
 
-			case "doing/reorder":
+		case "doing/reorder":
 			return {
 				...state,
-				doing: action.payload,
+				longTerms: {
+					...state.longTerms,
+					doing: action.payload,
+				}
+				
 			};
 
 		case "item/add":
-			return { ...state, items: [...state.items, action.payload] };
-
+    console.log(state);
+    return { 
+        ...state, 
+        longTerms: {
+            ...state.longTerms, 
+            items: [...state.longTerms.items, action.payload] 
+        }
+    };
+			
 		case "item/update":
-			const updatedItems = state.items.map(item => {
+			const updatedItems = state.longTerms.items.map(item => {
 				if (item.id === action.payload.id) {
 					// Aggiorna l'elemento
 					return { ...item, ...action.payload };
@@ -43,10 +68,21 @@ function reducer(state, action) {
 				return item;
 			});
 
-			return { ...state, items: updatedItems };
+			return { ...state, 
+				longTerms:{
+					...state.longTerms,
+					items: updatedItems 
+				}
+			};
 
 		case "item/singleItemRemove":
-			return {...state , items: state.items.filter((item) => item.id !== action.payload)};
+			return {
+				...state , 
+				longTerms:{
+					...state.longTerms,
+					items: state.longTerms.items.filter((item) => item.id !== action.payload)
+				}
+				};
 
 		case "item/delete":
 			// Verifica se l'ID è valido
@@ -54,26 +90,30 @@ function reducer(state, action) {
 		
 
 			// Trova l'elemento da rimuovere
-			const itemToRemove = state.items.find(item => {
+			const itemToRemove = state.longTerms.items.find(item => {
 				return item.id === action.payload;
 			});
 
 			if (itemToRemove && validId) {
 				// Crea il nuovo array done
-				const newDone = state.done.some(item => item.id === itemToRemove.id)
-					? state.done
-					: [...state.done, { ...itemToRemove }];
+				const newDone = state.longTerms.done.some(item => item.id === itemToRemove.id)
+					? state.longTerms.done
+					: [...state.longTerms.done, { ...itemToRemove }];
 
 				// Filtra l'array items
-				const newItems = state.items.filter(item => {
+				const newItems = state.longTerms.items.filter(item => {
 					const shouldKeep = item.id !== action.payload;
 					return shouldKeep;
 				});
 
 				return {
 					...state,
-					items: newItems,
-					done: newDone
+					longTerms:{
+						...state.longTerms,
+						items: newItems,
+						done: newDone
+					}
+					
 				};
 			}
 
@@ -81,53 +121,66 @@ function reducer(state, action) {
 
 		case "item/doing": 
 
-		const itemDoing = state.items.find(item => {
+		const itemDoing = state.longTerms.items.find(item => {
 			return item.id === action.payload;
 		});
 
 		if (itemDoing) {
-			const newDone = state.doing.some(item => item.id === itemDoing.id)
+			const newDone = state.longTerms.doing.some(item => item.id === itemDoing.id)
 			? state.doing
-			: [...state.doing, { ...itemDoing }];
+			: [...state.longTerms.doing, { ...itemDoing }];
 
-			const newItems = state.items.filter(item => {
+			const newItems = state.longTerms.items.filter(item => {
 				const shouldKeep = item.id !== action.payload;
 				return shouldKeep;
 			});
 
 			return {
 				...state,
-				items: newItems,
-				doing: newDone
+				longTerms:{
+					...state.longTerms,
+					items: newItems,
+					doing: newDone
+				}
+			
 			};
 		}
 		return state
 
 		case "item/finish": 	
-		const itemDone = state.doing.find(item => {
+		const itemDone = state.longTerms.doing.find(item => {
 			return item.id === action.payload;
 		});
 
 		if (itemDone) {
-			const newDone = state.done.some(item => item.id === itemDone.id)
-			? state.doing
-			: [...state.done, { ...itemDone }];
+			const newDone = state.longTerms.done.some(item => item.id === itemDone.id)
+			? state.longTerms.doing
+			: [...state.longTerms.done, { ...itemDone }];
 
-			const newItems = state.doing.filter(item => {
+			const newItems = state.longTerms.doing.filter(item => {
 				const shouldKeep = item.id !== action.payload;
 				return shouldKeep;
 			});
 
 			return {
 				...state,
-				doing: newItems,
-				done: newDone
+				longTerms:{
+					...state.longTerms,
+					doing: newItems,
+					done: newDone
+				}
 			};
 		}
 		return state
 
 		case "item/deleteDone":
-			return {...state , done: state.done.filter((doneItem) => doneItem.id !== action.payload)};
+			return {
+				...state , 
+				longTerms :{
+					...state.longTerms ,
+						done: state.longTerms.done.filter((doneItem) => doneItem.id !== action.payload)}
+				}
+			
 
 		default:
 			throw new Error("Unknown action type");
@@ -135,13 +188,13 @@ function reducer(state, action) {
 }
 
 function ListProvider({ children }) {
-	const [{ items, done ,doing}, dispatch] = useReducer(reducer, initialState);
+	const [{longTerms}, dispatch] = useReducer(reducer, initialState);
 
 	useEffect(() => {
-		localStorage.setItem("items", JSON.stringify(items));
-		localStorage.setItem("doingItems", JSON.stringify(doing));
-		localStorage.setItem("doneItems", JSON.stringify(done));
-	}, [items,doing,done]);
+		localStorage.setItem("items", JSON.stringify(longTerms.items));
+		localStorage.setItem("doingItems", JSON.stringify(longTerms.doing));
+		localStorage.setItem("doneItems", JSON.stringify(longTerms.done));
+	}, [longTerms]);
 
 
 	function handleAddItem(thing) {
@@ -188,9 +241,7 @@ function ListProvider({ children }) {
 	return (
 		<ListContext.Provider
 			value={{
-				items,
-				doing,
-				done,
+				longTerms,
 				addItems: handleAddItem,
 				addDoing: handleAddDoing,
 				doneDoing : handleDoneDoing,

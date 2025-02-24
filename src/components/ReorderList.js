@@ -1,8 +1,6 @@
 import { Reorder } from "motion/react"
 import { Button } from "./Button";
 
-
-
 function ReorderList({values , onReorder, attività, typeList , funzione , footer , icon}) {
 
   return (
