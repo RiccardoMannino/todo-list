@@ -3,16 +3,15 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 const ListContext = createContext();
 
 const initialState = {
-	longTerms :{
-		items: JSON.parse(localStorage.getItem("items")) ? JSON.parse(localStorage.getItem("items")) : [],
-
+	longTerms : {
+		items:  JSON.parse(localStorage.getItem("items")) || [],
 		doing: JSON.parse(localStorage.getItem("doingItems")) || [],
 		done: JSON.parse(localStorage.getItem("doneItems")) || [],
 	},
 	today : {
-		todayItems: JSON.parse(localStorage.getItem("todayItems")) || [],
-		todayDoing: JSON.parse(localStorage.getItem("todayDoingItems")) || [],
-		todayDone: JSON.parse(localStorage.getItem("todayDoneItems")) || [],
+		todayItems:  JSON.parse(localStorage.getItem("todayItems")) || [],
+		todayDoing:  JSON.parse(localStorage.getItem("todayDoingItems")) || [],
+		todayDone:  JSON.parse(localStorage.getItem("todayDoneItems")) || [],
 	}
 };
 
@@ -88,7 +87,6 @@ function reducer(state, action) {
 			// Verifica se l'ID è valido
 			const validId = action.payload ?? state
 		
-
 			// Trova l'elemento da rimuovere
 			const itemToRemove = state.longTerms.items.find(item => {
 				return item.id === action.payload;
@@ -113,10 +111,8 @@ function reducer(state, action) {
 						items: newItems,
 						done: newDone
 					}
-					
 				};
 			}
-
 			return state;
 
 		case "item/doing": 
@@ -181,20 +177,19 @@ function reducer(state, action) {
 						done: state.longTerms.done.filter((doneItem) => doneItem.id !== action.payload)}
 				}
 			
-
 		default:
 			throw new Error("Unknown action type");
 	}
 }
 
 function ListProvider({ children }) {
-	const [{longTerms}, dispatch] = useReducer(reducer, initialState);
+	const [{longTerms , today}, dispatch] = useReducer(reducer, initialState);
 
 	useEffect(() => {
 		localStorage.setItem("items", JSON.stringify(longTerms.items));
 		localStorage.setItem("doingItems", JSON.stringify(longTerms.doing));
 		localStorage.setItem("doneItems", JSON.stringify(longTerms.done));
-	}, [longTerms]);
+	}, [longTerms , today]);
 
 
 	function handleAddItem(thing) {
@@ -236,7 +231,6 @@ function ListProvider({ children }) {
 	function handleDoingReorderItems(ordine) {
 		dispatch({ type: "doing/reorder", payload: ordine });
 	}
-
 
 	return (
 		<ListContext.Provider

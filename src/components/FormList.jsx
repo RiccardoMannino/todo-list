@@ -4,12 +4,12 @@ import { useList } from "../context/ListContext";
 
 export function FormList() {
 	const { addItems } = useList();
-
+	// stato della descrizione della todo
 	const [description, setDescription] = useState("");
+	// stato del periodo che scegliamo per la todo
 	const [selectPeriod , setSelectPeriod] = useState("")
 
 	
-
 	function handleSubmit(e) {
 		e.preventDefault();
 
@@ -25,7 +25,6 @@ export function FormList() {
 		addItems(newItem);
 
 		setDescription("");
-
 	}
 
 	return (
