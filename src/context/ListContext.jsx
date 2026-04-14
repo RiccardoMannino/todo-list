@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 const ListContext = createContext();
 
 const initialState = {
+	period: "",
 	longTerms : {
 		items:  JSON.parse(localStorage.getItem("items")) || [],
 		doing: JSON.parse(localStorage.getItem("doingItems")) || [],
@@ -18,7 +19,11 @@ const initialState = {
 function reducer(state, action) {
 
 	switch (action.type) {
-		// i casi con reorder servono per il drag nella lista per ordinare (qualora si volesse) gli elementi
+		case "periodlist": 
+		return {
+			...state , period: action.payload
+		}
+		// i casi con reorder servono per il drag nella lista, per ordinare (qualora si volesse) gli elementi
 		case "item/reorder":
 			return {
 				...state,
@@ -27,7 +32,7 @@ function reducer(state, action) {
 						items: action.payload, 
 				}
 			};
-
+			// Lungo termine
 		case "done/reorder":
 			return {
 				...state,
@@ -49,29 +54,45 @@ function reducer(state, action) {
 
 		case "item/add":
     console.log(state);
-    return { 
+		if(state.period === "Lungo termine"){
+			 return { 
         ...state, 
         longTerms: {
             ...state.longTerms, 
             items: [...state.longTerms.items, action.payload] 
         }
-    };
+    }}
+		return{	...state ,
+					today : {
+						...state.today,
+						todayItems : [...state.today.todayItems , action.payload]
+					}}
+
 			
 		case "item/update":
-			const updatedItems = state.longTerms.items.map(item => {
+			
+			const updatedItems = state.period === "Lungo termine" ? state.longTerms.items.map(item => {
 				if (item.id === action.payload.id) {
 					// Aggiorna l'elemento
 					return { ...item, ...action.payload };
 				}
 				// Mantieni invariato l'elemento
 				return item;
-			});
+			}) : state.today.todayItems.map(item => {
+				if (item.id === action.payload.id) {
+					// Aggiorna l'elemento
+					return { ...item, ...action.payload };
+				}
+				// Mantieni invariato l'elemento
+				return item;
+			})
 
 			return { ...state, 
 				longTerms:{
 					...state.longTerms,
 					items: updatedItems 
-				}
+				},
+				
 			};
 
 		case "item/singleItemRemove":
@@ -176,25 +197,45 @@ function reducer(state, action) {
 					...state.longTerms ,
 						done: state.longTerms.done.filter((doneItem) => doneItem.id !== action.payload)}
 				}
-			
+		
+		case "item/addtoday":	
+				return {
+					...state ,
+					today : {
+						...state.today,
+						todayItems : [...state.today.todayItems , action.payload]
+					}
+				}
+		
+
+
 		default:
-			throw new Error("Unknown action type");
+			throw new Error("Tipo di azone sconosciuta");
 	}
 }
 
 function ListProvider({ children }) {
-	const [{longTerms , today}, dispatch] = useReducer(reducer, initialState);
+	const [{longTerms , today , period}, dispatch] = useReducer(reducer, initialState);
 
 	useEffect(() => {
 		localStorage.setItem("items", JSON.stringify(longTerms.items));
 		localStorage.setItem("doingItems", JSON.stringify(longTerms.doing));
 		localStorage.setItem("doneItems", JSON.stringify(longTerms.done));
+
+		localStorage.setItem("todayItems", JSON.stringify(today.todayItems))
 	}, [longTerms , today]);
+
+
+	function handlePeriod(period){
+		dispatch({type: "periodlist" , payload:period })
+	}
 
 
 	function handleAddItem(thing) {
 		dispatch({ type: "item/add", payload: thing });
 	}
+
+
 
 	function handleAddDoing(thing){
 		dispatch({type : "item/doing", payload: thing})
@@ -233,9 +274,12 @@ function ListProvider({ children }) {
 	}
 
 	return (
-		<ListContext.Provider
+		<ListContext
 			value={{
 				longTerms,
+				today,
+				period,
+				setPeriod: handlePeriod,
 				addItems: handleAddItem,
 				addDoing: handleAddDoing,
 				doneDoing : handleDoneDoing,
@@ -250,7 +294,7 @@ function ListProvider({ children }) {
 			}}
 		>
 			{children}
-		</ListContext.Provider>
+		</ListContext>
 	);
 }
 

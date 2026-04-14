@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { useList } from "../context/ListContext";
 
 export function FormList() {
-	const { addItems } = useList();
+	const { addItems , addTodayItems , setPeriod} = useList();
 	// stato della descrizione della todo
 	const [description, setDescription] = useState("");
 	// stato del periodo che scegliamo per la todo
@@ -22,7 +22,9 @@ export function FormList() {
 			description: description,
 		};
 
-		addItems(newItem);
+		// usiamo il il context
+		setPeriod(selectPeriod);
+		addItems(newItem) 
 
 		setDescription("");
 	}
@@ -37,6 +39,7 @@ export function FormList() {
 					onChange={(e) => setDescription(e.target.value)}
 					className="bg-yellow-500 accent-neutral-50 p-2 rounded-2xl text-neutral-50"
 				/>
+				{/* select che servirà a settare il tipo di todo */}
 				<select value={selectPeriod}  className="bg-yellow-500 rounded-2xl p-2 text-neutral-50" onChange={(e) => setSelectPeriod( e.target.value)}>
 						<option>Oggi</option>
 						<option>Lungo termine</option>

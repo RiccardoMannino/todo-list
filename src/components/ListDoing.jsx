@@ -1,11 +1,12 @@
 import { DoingItem } from "./DoingItem";
+import List from "./List";
 
 export function ListDoing() {
 	return (
-		<div
-			className="flex phone:mt-8 justify-between text-center w-full max-h-96 phone:max-h-56 flex-col "
+		<List
+			className="flex max-h-96 phone:mt-8 justify-between text-center w-full  phone:max-h-56 flex-col md:min-h-[40rem]"
 		>
 			<DoingItem />
-		</div>
+		</List>
 	);
 }
